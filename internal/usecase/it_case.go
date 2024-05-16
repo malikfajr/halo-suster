@@ -15,7 +15,8 @@ import (
 
 type ITUseCase interface {
 	Register(ctx context.Context, payload *entity.ITStaffRegister) (*entity.ITStaff, error)
-	Login(ctx context.Context, payload *entity.ITStaffLogin) (*entity.ITStaff, error)
+	Login(ctx context.Context, payload *entity.AuthLogin) (*entity.ITStaff, error)
+	GetAllUser(ctx context.Context, params *entity.UserParam) []*entity.User
 }
 
 type iTUsecase struct {
@@ -23,8 +24,17 @@ type iTUsecase struct {
 	itRepository repository.ITRepository
 }
 
+// GetAllUser implements ITUseCase.
+func (i *iTUsecase) GetAllUser(ctx context.Context, params *entity.UserParam) []*entity.User {
+	users := i.itRepository.GetAllUsers(ctx, i.pool, params)
+	if users != nil {
+		return users
+	}
+	return []*entity.User{}
+}
+
 // Login implements ITUseCase.
-func (i *iTUsecase) Login(ctx context.Context, payload *entity.ITStaffLogin) (*entity.ITStaff, error) {
+func (i *iTUsecase) Login(ctx context.Context, payload *entity.AuthLogin) (*entity.ITStaff, error) {
 	user := &entity.ITStaff{
 		Nip: payload.Nip,
 	}
