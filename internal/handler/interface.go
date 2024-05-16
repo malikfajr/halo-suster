@@ -14,6 +14,7 @@ type nurseHanlder interface {
 	GetById(e echo.Context) error
 	Destroy(e echo.Context) error
 	AddAccess(e echo.Context) error
+	Update(e echo.Context) error
 }
 
 type jsonOk struct {

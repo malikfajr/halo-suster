@@ -14,4 +14,7 @@ func newNurseRoute(e *echo.Echo, pool *pgxpool.Pool) {
 	g := e.Group("/v1/user/nurse")
 
 	g.POST("/register", middleware.Auth(h.Register, "it"))
+	g.PUT("/:userId", middleware.Auth(h.Update, "it"))
+	g.DELETE("/:userId", middleware.Auth(h.Destroy, "it"))
+	g.POST("/:userId/access", middleware.Auth(h.AddAccess, "it"))
 }

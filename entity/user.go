@@ -6,6 +6,8 @@ type User struct {
 	ID        string     `json:"userId"`
 	Nip       int        `json:"nip"`
 	Name      string     `json:"name"`
+	Role      int        `json:"-"`
+	Password  string     `json:"-"`
 	CreatedAt *time.Time `json:"createdAt"`
 }
 
@@ -55,4 +57,10 @@ type AddNursePayload struct {
 	Nip                 int    `json:"nip" validate:"required"`
 	Name                string `json:"name" validate:"required,min=5,max=50"`
 	IdentityCardScanImg string `json:"identityCardScanImg" validate:"required,url"`
+}
+
+type EditNursePayload struct {
+	UserId string `param:"userId"`
+	Nip    int    `json:"nip" validate:"required"`
+	Name   string `json:"name" validiate:"required"`
 }
