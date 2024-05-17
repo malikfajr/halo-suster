@@ -1,0 +1,52 @@
+name: Build and Push Docker image to ECR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build Docker image
+        run: |
+          REPOSITORY_NAME=ubigantung-repository
+          IMAGE_TAG=latest
+
+          docker build -t $REPOSITORY_NAME:$IMAGE_TAG .
+
+      - name: Tag Docker image
+        run: |
+          REPOSITORY_NAME=ubigantung-repository
+          IMAGE_TAG=latest
+
+          aws_account_id=$(aws sts get-caller-identity --query Account --output text)
+          ecr_uri="$aws_account_id.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$REPOSITORY_NAME"
+
+          docker tag $REPOSITORY_NAME:$IMAGE_TAG $ecr_uri:$IMAGE_TAG
+
+      - name: Push Docker image to ECR
+        run: |
+          REPOSITORY_NAME=ubigantung-repository
+          IMAGE_TAG=latest
+
+          aws_account_id=$(aws sts get-caller-identity --query Account --output text)
+          ecr_uri="$aws_account_id.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$REPOSITORY_NAME"
+
+          docker push $ecr_uri:$IMAGE_TAG
