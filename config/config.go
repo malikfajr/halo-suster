@@ -29,15 +29,6 @@ type jwt struct {
 
 var JWT = &jwt{}
 
-type s3 struct {
-	ID          string
-	SECRET_KEY  string
-	BUCKET_NAME string
-	REGION      string
-}
-
-var S3 = &s3{}
-
 func init() {
 	DB.Name = os.Getenv("DB_NAME")
 	DB.Port = os.Getenv("DB_PORT")
@@ -54,11 +45,6 @@ func init() {
 	}
 
 	JWT.SECRET = os.Getenv("JWT_SECRET")
-
-	S3.ID = os.Getenv("S3_ID")
-	S3.SECRET_KEY = os.Getenv("S3_SECRET_KEY")
-	S3.BUCKET_NAME = os.Getenv("S3_BUCKET_NAME")
-	S3.REGION = os.Getenv("S3_REGION")
 }
 
 func GetDBAdd() string {
