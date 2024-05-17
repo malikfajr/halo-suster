@@ -10,6 +10,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/malikfajr/halo-suster/config"
 	"github.com/malikfajr/halo-suster/internal/driver/db"
+	"github.com/malikfajr/halo-suster/internal/helper/customvalidator"
 	"github.com/malikfajr/halo-suster/internal/routes"
 )
 
@@ -20,7 +21,7 @@ func Run() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.CORS())
 
-	cv := &CustomValidator{validator: validator.New()}
+	cv := customvalidator.NewCustomValidator(validator.New())
 
 	e.Validator = cv
 
@@ -32,15 +33,4 @@ func Run() {
 	if err := e.Start(":8080"); err != http.ErrServerClosed {
 		log.Fatal(err)
 	}
-}
-
-type CustomValidator struct {
-	validator *validator.Validate
-}
-
-func (cv *CustomValidator) Validate(i interface{}) error {
-	if err := cv.validator.Struct(i); err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-	}
-	return nil
 }

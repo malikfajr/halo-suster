@@ -29,7 +29,7 @@ type ITStaff struct {
 }
 
 type ITStaffRegister struct {
-	Nip      int    `json:"nip" validate:"required"`
+	Nip      int    `json:"nip" validate:"required,nip=it"`
 	Name     string `json:"name" validate:"required,min=5,max=50"`
 	Password string `json:"password" validate:"required,min=5,max=33"`
 }
@@ -54,7 +54,7 @@ type NurseResponse struct {
 
 type AddNursePayload struct {
 	Id                  string `json:"-"`
-	Nip                 int    `json:"nip" validate:"required"`
+	Nip                 int    `json:"nip" validate:"required,nip=nurse"`
 	Name                string `json:"name" validate:"required,min=5,max=50"`
 	IdentityCardScanImg string `json:"identityCardScanImg" validate:"required,url"`
 }
