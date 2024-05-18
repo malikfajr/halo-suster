@@ -39,3 +39,10 @@ func NewNotFound(message string) *CustomError {
 		StatusCode: http.StatusNotFound,
 	}
 }
+
+func NewUnauthorized(message string) *CustomError {
+	return &CustomError{
+		Message:    message,
+		StatusCode: http.StatusUnauthorized,
+	}
+}

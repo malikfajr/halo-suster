@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/jackc/pgx/v5/pgxpool"
-	echo "github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4"
 	"github.com/malikfajr/halo-suster/entity"
 	"github.com/malikfajr/halo-suster/internal/exception"
 	"github.com/malikfajr/halo-suster/internal/helper/jwt"
@@ -125,7 +125,7 @@ func (n *hNurse) Login(e echo.Context) error {
 			ID:          user.ID,
 			Nip:         user.Nip,
 			Name:        user.Name,
-			AccessToken: jwt.CreateToken(user.ID, "nurse"),
+			AccessToken: jwt.CreateToken(user.ID, user.Nip, "nurse"),
 		},
 	})
 }

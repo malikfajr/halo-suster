@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
     id CHAR(36) PRIMARY KEY NOT NULL,
-    nip CHAR(16) NOT NULL,
+    nip VARCHAR(15) NOT NULL,
     name VARCHAR(50) NOT NULL,
     password CHAR(60) NULL,
     role SMALLINT NOT NULL,

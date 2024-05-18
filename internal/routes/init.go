@@ -8,5 +8,6 @@ import (
 func NewRoute(e *echo.Echo, pool *pgxpool.Pool) {
 	newITRoute(e, pool)
 	newNurseRoute(e, pool)
+	newPatientRoute(e, pool)
 	newImageRoute(e)
 }

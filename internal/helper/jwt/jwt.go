@@ -10,14 +10,16 @@ import (
 
 type JWTClaim struct {
 	ID   string            `json:"id"`
+	Nip  int               `json:"nip"`
 	Role string            `json:"role"`
 	Exp  *gjwt.NumericDate `json:"exp"`
 	gjwt.RegisteredClaims
 }
 
-func CreateToken(ID string, role string) string {
+func CreateToken(ID string, nip int, role string) string {
 	claim := &JWTClaim{
 		ID:   ID,
+		Nip: nip,
 		Role: role,
 		Exp:  gjwt.NewNumericDate(time.Now().Add(8 * time.Hour)),
 	}

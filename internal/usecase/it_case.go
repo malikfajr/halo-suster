@@ -3,7 +3,6 @@ package usecase
 import (
 	"context"
 	"log"
-	"math"
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -39,11 +38,8 @@ func (i *iTUsecase) Login(ctx context.Context, payload *entity.AuthLogin) (*enti
 		Nip: payload.Nip,
 	}
 
-	validPrefix := int(payload.Nip / int(math.Pow(10, 10))) // check prefix for it nip
-
 	err := i.itRepository.Login(ctx, i.pool, user)
-	if err != nil || validPrefix != 615 {
-		log.Println(validPrefix)
+	if err != nil {
 		return nil, exception.NewNotFound("nip not found")
 	}
 

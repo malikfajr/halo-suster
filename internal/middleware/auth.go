@@ -13,21 +13,22 @@ func Auth(next echo.HandlerFunc, roles ...string) echo.HandlerFunc {
 		Authorization := e.Request().Header.Get("Authorization")
 
 		if len(Authorization) < 9 || Authorization[:7] != "Bearer " {
-			return e.JSON(http.StatusBadRequest, exception.NewBadRequest("Invalid token"))
+			return e.JSON(http.StatusUnauthorized, exception.NewUnauthorized("Invalid token"))
 		}
 
 		token := Authorization[7:]
 		claim, err := jwt.ClaimToken(token)
 		if err != nil {
-			return e.JSON(http.StatusBadRequest, exception.NewBadRequest("Invalid token"))
+			return e.JSON(http.StatusUnauthorized, exception.NewUnauthorized("Invalid token"))
 		}
 
 		for _, role := range roles {
 			if role == claim.Role {
+				e.Set("user", claim)
 				return next(e)
 			}
 		}
-		return e.JSON(http.StatusBadRequest, exception.NewBadRequest("You don't have access"))
+		return e.JSON(http.StatusUnauthorized, exception.NewUnauthorized("You don't have access"))
 
 	}
 }

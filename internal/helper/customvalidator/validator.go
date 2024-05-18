@@ -25,6 +25,8 @@ func NewCustomValidator(validator *validator.Validate) *customValidator {
 
 	cv.validator.RegisterValidation("imageUrl", validImageUrl)
 	cv.validator.RegisterValidation("nip", validNip)
+	cv.validator.RegisterValidation("id_phone", validIdPhone)
+	cv.validator.RegisterValidation("idNumber", validIdNumber)
 
 	return cv
 }

@@ -52,7 +52,7 @@ func (i *ITHandler) Login(e echo.Context) error {
 			ID:          data.ID,
 			Nip:         data.Nip,
 			Name:        data.Name,
-			AccessToken: jwt.CreateToken(data.ID, "it"),
+			AccessToken: jwt.CreateToken(data.ID, data.Nip, "it"),
 		},
 	})
 }
@@ -85,7 +85,7 @@ func (i *ITHandler) Register(e echo.Context) error {
 			ID:          data.ID,
 			Nip:         data.Nip,
 			Name:        data.Name,
-			AccessToken: jwt.CreateToken(data.ID, "it"),
+			AccessToken: jwt.CreateToken(data.ID, data.Nip, "it"),
 		},
 	})
 }

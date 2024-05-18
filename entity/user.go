@@ -56,11 +56,11 @@ type AddNursePayload struct {
 	Id                  string `json:"-"`
 	Nip                 int    `json:"nip" validate:"required,nip=nurse"`
 	Name                string `json:"name" validate:"required,min=5,max=50"`
-	IdentityCardScanImg string `json:"identityCardScanImg" validate:"required,url"`
+	IdentityCardScanImg string `json:"identityCardScanImg" validate:"required,imageUrl"`
 }
 
 type EditNursePayload struct {
 	UserId string `param:"userId"`
-	Nip    int    `json:"nip" validate:"required"`
-	Name   string `json:"name" validiate:"required"`
+	Nip    int    `json:"nip" validate:"required,nip=nurse"`
+	Name   string `json:"name" validate:"required,min=5,max=50"`
 }
