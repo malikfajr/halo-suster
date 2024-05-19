@@ -50,3 +50,8 @@ jobs:
           ecr_uri="$aws_account_id.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$REPOSITORY_NAME"
 
           docker push $ecr_uri:$IMAGE_TAG
+
+      - name: Reload ecs service
+        run: |
+          aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER_NAME }} --service ${{ secrets.ECS_SERVICE_NAME }} --force-new-deployment --region ${{ secrets.AWS_REGION }}
+
