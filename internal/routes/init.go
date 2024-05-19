@@ -10,4 +10,5 @@ func NewRoute(e *echo.Echo, pool *pgxpool.Pool) {
 	newNurseRoute(e, pool)
 	newPatientRoute(e, pool)
 	newImageRoute(e)
+	newMedicalRecordRoute(e, pool)
 }

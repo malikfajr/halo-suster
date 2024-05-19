@@ -11,5 +11,5 @@ func newPatientRoute(e *echo.Echo, pool *pgxpool.Pool) {
 	h := handler.NewPatientHandler(pool)
 
 	e.POST("/v1/medical/patient", middleware.Auth(h.Record, "it", "nurse"))
-	e.GET("/v1/medical/patient", h.GetAll)
+	e.GET("/v1/medical/patient", middleware.Auth(h.GetAll, "it", "nurse"))
 }

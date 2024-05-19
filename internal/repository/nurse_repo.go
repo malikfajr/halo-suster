@@ -25,9 +25,9 @@ type nurseRepo struct{}
 // GetByNip implements NurseRepo.
 func (n *nurseRepo) GetByNip(ctx context.Context, pool *pgxpool.Pool, nip int) (*entity.User, error) {
 	user := &entity.User{}
-	query := "SELECT id, name, role, password FROM users WHERE nip = $1"
+	query := "SELECT id, name, nip::BIGINT, role, password FROM users WHERE nip = $1"
 
-	err := pool.QueryRow(ctx, query, strconv.Itoa(nip)).Scan(&user.ID, &user.Name, &user.Role, &user.Password)
+	err := pool.QueryRow(ctx, query, strconv.Itoa(nip)).Scan(&user.ID, &user.Name, &user.Nip, &user.Role, &user.Password)
 	if err != nil {
 		log.Println(err)
 		return nil, errors.New("nip not found")
@@ -60,7 +60,7 @@ func (*nurseRepo) Delete(ctx context.Context, pool *pgxpool.Pool, userId string)
 // Update implements NurseRepo.
 func (*nurseRepo) Update(ctx context.Context, pool *pgxpool.Pool, payload *entity.EditNursePayload) {
 
-	query := "UPDATE users SET nip = $1, name $2 WHERE id = $3"
+	query := "UPDATE users SET nip = $1, name = $2 WHERE id = $3"
 
 	_, err := pool.Exec(ctx, query, strconv.Itoa(payload.Nip), payload.Name, payload.UserId)
 	if err != nil {

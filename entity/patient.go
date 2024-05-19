@@ -22,7 +22,7 @@ type AddPatientPayload struct {
 }
 
 type PatientQueryParam struct {
-	IdNumber    string `query:"idNumber"`
+	IdNumber    string `query:"identityNumber"`
 	Name        string `query:"name"`
 	PhoneNumber string `query:"phoneNumber"`
 	CreatedAt   string `query:"createdAt"`

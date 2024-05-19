@@ -27,11 +27,12 @@ func (p *PatientRepository) IdNumberExis(ctx context.Context, pool *pgxpool.Pool
 func (p *PatientRepository) Insert(ctx context.Context, pool *pgxpool.Pool, patient *entity.Patient) error {
 	query := `INSERT INTO 
 				patients(id, phone_number, name, birth_date, gender, card_img) 
-				VALUES(@id, @phone, @name, @birth, @gender, @imt)`
+				VALUES(@id, @phone, @name, @birth, @gender, @img)`
 
 	args := pgx.NamedArgs{
 		"id":     strconv.Itoa(patient.IdNumber),
-		"phone":  patient.Name,
+		"name":   patient.Name,
+		"phone":  patient.PhoneNumber,
 		"birth":  patient.BirthDate,
 		"gender": patient.Gender,
 		"img":    patient.ImageCard,

@@ -75,7 +75,7 @@ func (n *nurseCase) Delete(ctx context.Context, userId string) error {
 	}
 
 	if user.Role != 0 {
-		return exception.NewBadRequest("user is not nurse")
+		return exception.NewNotFound("user is not nurse")
 	}
 
 	err = nRepo.Delete(ctx, n.pool, userId)
