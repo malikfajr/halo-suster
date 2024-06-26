@@ -3,6 +3,7 @@ module github.com/malikfajr/halo-suster
 go 1.22.1
 
 require (
+	github.com/aws/aws-sdk-go-v2 v1.27.0
 	github.com/aws/aws-sdk-go-v2/config v1.27.15
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.54.2
 	github.com/go-playground/validator/v10 v10.20.0
@@ -14,7 +15,6 @@ require (
 )
 
 require (
-	github.com/aws/aws-sdk-go-v2 v1.27.0 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.6.2 // indirect
 	github.com/aws/aws-sdk-go-v2/credentials v1.17.15 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.16.3 // indirect
