@@ -92,7 +92,7 @@ To install the boilerplate, follow these steps:
    Once you have set up the environment variables, you can start the application by running:
 
    ```bash
-   go run main.go
+   go run ./cmd/main.go
    ```
 
    This will start the Halo Suster application on the default port (usually 8080). You can access the application in your web browser at `http://localhost:8080`.
@@ -151,24 +151,24 @@ To build app for different operating systems and architectures, you can use the 
 1. **Windows (amd64)**:
 
     ```bash
-    GOOS=windows GOARCH=amd64 go build -o build/main.exe main.go
+    GOOS=windows GOARCH=amd64 go build -o build/main.exe ./cmd/main.go
     ```
 
 2. **Linux (amd64)**:
 
     ```bash
-    GOOS=linux GOARCH=amd64 go build -o build/main main.go
+    GOOS=linux GOARCH=amd64 go build -o build/main ./cmd/main.go
     ```
 
 3. **macOS (amd64)**:
 
     ```bash
-    GOOS=darwin GOARCH=amd64 go build -o build/main main.go
+    GOOS=darwin GOARCH=amd64 go build -o build/main ./cmd/main.go
     ```
 
 4. **Linux (ARM)**:
     ```bash
-    GOOS=linux GOARCH=arm go build -o build/main main.go
+    GOOS=linux GOARCH=arm go build -o build/main ./cmd/main.go
     ```
 
 ## 🧪Testing
